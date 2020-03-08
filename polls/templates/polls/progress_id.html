@@ -1,0 +1,94 @@
+{% extends "polls/base.html" %}
+{% block content %}
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h2 class="page-header">每日进度</h2>
+          <ul class="nav nav-tabs">
+                {% for team in teams %}
+                {% if team.id == team_id %}
+                    <li role="presentation" class="active"><a href="{{ team.id }}">{{ team.team_name }}</a></li>
+                {% else %}
+                    <li role="presentation"><a href="{{ team.id }}">{{ team.team_name }}</a></li>
+                {% endif %}
+                {% endfor %}
+          </ul>
+            <!--{% for progress1 in progress1_list %}-->
+            <!--<div>{{progress1.progress}}</div>-->
+            <!--{% endfor %}-->
+            <!--{% for progress1 in progress1_pre_list %}-->
+            <!--<div>{{progress1.progress}}</div>-->
+            <!--{% endfor %}-->
+            <div class="panel panel-warning">
+                <div class="panel-heading">协调事项</div>
+                <ul class="list-group">
+                    {% for matter in matters %}
+                    <li class="list-group-item">{{forloop.counter}}.{{ matter.content }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="panel panel-danger">
+                <div class="panel-heading">存在的风险</div>
+                <ul class="list-group">
+                    {% for risk in risks %}
+                    <li class="list-group-item">{{forloop.counter}}.{{ risk.content }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">需求理解进度</div>
+                <ul class="list-group">
+                    {% for progress1, progress1_pre in lists1 %}
+                        {% if progress1.progress != 0 %}
+                            {% if progress1.subtask != null%}
+                                <li class="list-group-item">{{forloop.counter}}.{{progress1.item.task}}-{{progress1.item.sub_task}}  <span class="label label-default">{{ progress1_pre.progress }}% - {{ progress1.progress }}%</span></li>
+                            {% else %}
+                                <li class="list-group-item">{{forloop.counter}}.{{progress1.item.task}}<span class="badge">{{ progress1_pre.progress }}% - {{ progress1.progress }}%</span></li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">用例编写进度</div>
+                <ul class="list-group">
+                    {% for progress1, progress1_pre in lists2 %}
+                        {% if progress1.progress != 0 %}
+                            {% if progress1.subtask != null%}
+                                <li class="list-group-item">{{forloop.counter}}.{{progress1.item.task}}-{{progress1.item.sub_task}}  <span class="label label-default">{{ progress1_pre.progress }}% - {{ progress1.progress }}%</span></li>
+                            {% else %}
+                                <li class="list-group-item"><h5>{{forloop.counter}}.{{progress1.item.task}}  <span class="label label-default">{{ progress1_pre.progress }}% - {{ progress1.progress }}%</span></h5></li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">用例执行进度</div>
+                <ul class="list-group">
+                    {% for progress1, progress1_pre in lists3 %}
+                        {% if progress1.progress != 0 %}
+                            {% if progress1.subtask != null%}
+                                <li class="list-group-item">{{forloop.counter}}.{{progress1.item.task}}-{{progress1.item.sub_task}}  <span class="label label-default">{{ progress1_pre.progress }}% - {{ progress1.progress }}%</span></li>
+                            {% else %}
+                                <li class="list-group-item"><h5>{{forloop.counter}}.{{progress1.item.task}}  <span class="label label-default">{{ progress1_pre.progress }}% - {{ progress1.progress }}%</span></h5></li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">报告编写进度</div>
+                <ul class="list-group">
+                    {% for progress1, progress1_pre in lists4 %}
+                        {% if progress1.progress != 0 %}
+                            {% if progress1.subtask != null%}
+                                <li class="list-group-item">{{forloop.counter}}.{{progress1.item.task}}-{{progress1.item.sub_task}}  <span class="label label-default">{{ progress1_pre.progress }}% - {{ progress1.progress }}%</span></li>
+                            {% else %}
+                                <li class="list-group-item"><h5>{{forloop.counter}}.{{progress1.item.task}}  <span class="label label-default">{{ progress1_pre.progress }}% - {{ progress1.progress }}%</span></h5></li>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+{% endblock %}

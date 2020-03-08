@@ -1,0 +1,133 @@
+{% extends "polls/base.html" %}
+{% block content %}
+
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h2 class="page-header">任务板</h2>
+          <ul class="nav nav-tabs">
+            {% for team in teams %}
+            {% if team.id == team_id %}
+                <li role="presentation" class="active"><a href="{{ team.id }}">{{ team.team_name }}</a></li>
+            {% else %}
+                <li role="presentation"><a href="{{ team.id }}">{{ team.team_name }}</a></li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>上线时间</th>
+                  <th>项目</th>
+                  <th>子系统</th>
+                  <th>上线功能点</th>
+                  <th>子任务分解</th>
+                  <th>开发人员</th>
+                  <th>测试人员</th>
+                  <th>用例理解</th>
+                  <th>用例编写</th>
+                  <th>用例执行</th>
+                  <th>报告编写</th>
+                  <th>备注</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for task, progress1, progress2, progress3, progress4 in lists %}
+                <tr>
+                  <td>{{ task.pub_date }}</td>
+                  <td>{{ task.system }}</td>
+                  <td>{{ task.sub_system }}</td>
+                  <td>{{ task.task }}</td>
+                  <td>{{ task.sub_task }}</td>
+                  <td>
+                      {% for name in task.developer.all %}
+                            {{ name }}&nbsp;
+                      {% endfor %}
+                  </td>
+                  <td>
+                      {% for name in task.tester.all %}
+                            {{ name }}&nbsp;
+                      {% endfor %}
+                  </td>
+                  <td>
+                      {% if progress1.pub_date == date_now and progress1.progress != 0 and progress1.progress != NULL %}
+                        <span style="color: red">
+                            {% if progress1.progress == 100 %}
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {% else %}
+                                {{ progress1.progress }}%
+                            {% endif %}
+                        </span>
+                      {% endif %}
+                      <!--<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-->
+                      {% if progress1.pub_date != date_now and progress1.progress != 0 and progress1.progress != NULL %}
+                        {% if progress1.progress == 100 %}
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {% else %}
+                                {{ progress1.progress }}%
+                            {% endif %}
+                      {% endif %}
+                  </td>
+                  <td>
+                       {% if progress2.pub_date == date_now and progress2.progress != 0 and progress2.progress != NULL %}
+                        <span style="color: red">
+                            {% if progress2.progress == 100 %}
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {% else %}
+                                {{ progress2.progress }}%
+                            {% endif %}
+                        </span>
+                      {% endif %}
+                      <!--<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-->
+                      {% if progress2.pub_date != date_now and progress2.progress != 0 and progress2.progress != NULL %}
+                        {% if progress2.progress == 100 %}
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {% else %}
+                                {{ progress2.progress }}%
+                            {% endif %}
+                      {% endif %}
+                  </td>
+                  <td>
+                       {% if progress3.pub_date == date_now and progress3.progress != 0 and progress3.progress != NULL %}
+                        <span style="color: red">
+                            {% if progress3.progress == 100 %}
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {% else %}
+                                {{ progress3.progress }}%
+                            {% endif %}
+                        </span>
+                      {% endif %}
+                      <!--<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-->
+                      {% if progress3.pub_date != date_now and progress3.progress != 0 and progress3.progress != NULL %}
+                        {% if progress3.progress == 100 %}
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {% else %}
+                                {{ progress3.progress }}%
+                            {% endif %}
+                      {% endif %}
+                  </td>
+                  <td>
+                       {% if progress4.pub_date == date_now and progress4.progress != 0 and progress4.progress != NULL %}
+                        <span style="color: red">
+                            {% if progress4.progress == 100 %}
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {% else %}
+                                {{ progress4.progress }}%
+                            {% endif %}
+                        </span>
+                      {% endif %}
+                      <!--<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>-->
+                      {% if progress4.pub_date != date_now and progress4.progress != 0 and progress4.progress != NULL %}
+                        {% if progress1.progress == 100 %}
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {% else %}
+                                {{ progress4.progress }}%
+                            {% endif %}
+                      {% endif %}
+                  </td>
+                  <td>{{ task.comment }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+          </div>
+        </div>>
+{% endblock %}

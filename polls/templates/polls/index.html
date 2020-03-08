@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>测试日报</title>
+
+        <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!--<link href="/static/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">-->
+        <!--<script src="/static/bootstrap/js/bootstrap.js"></script>-->
+        <!--<script src="/static/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>-->
+        <!--<script src="/static/bootstrap-table/jquery-3.4.1.min.js"></script>-->
+        <link href="/static/bootstrap/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+        <link href="/static/polls/dashboard.css" rel="stylesheet">
+        <script src="/static/bootstrap/js/ie-emulation-modes-warning.js"></script>
+    </head>
+    <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">测试日报</a>
+        </div>
+        <!--<div id="navbar" class="navbar-collapse collapse">-->
+          <!--<ul class="nav navbar-nav navbar-right">-->
+            <!--<li><a href="#">Dashboard</a></li>-->
+            <!--<li><a href="#">Settings</a></li>-->
+            <!--<li><a href="#">Profile</a></li>-->
+            <!--<li><a href="#">Help</a></li>-->
+          <!--</ul>-->
+          <!--<form class="navbar-form navbar-right">-->
+            <!--<input type="text" class="form-control" placeholder="Search...">-->
+          <!--</form>-->
+        <!--</div>-->
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#">任务板<span class="sr-only">(current)</span></a></li>
+            <li><a href="#">每日进度</a></li>
+            <li><a href="#">日报预览</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <h1 class="page-header">任务板</h1>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>上线时间</th>
+                  <th>项目</th>
+                  <th>子系统</th>
+                  <th>上线功能点</th>
+                  <th>子任务分解</th>
+                  <th>开发人员</th>
+                  <th>测试人员</th>
+                  <th>用例理解</th>
+                  <th>用例编写</th>
+                  <th>用例执行</th>
+                  <th>报告编写</th>
+                  <th>备注</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for task, progress1, progress2, progress3, progress4 in lists %}
+                <tr>
+                  <td>{{ task.pub_date }}</td>
+                  <td>{{ task.system }}</td>
+                  <td>{{ task.sub_system }}</td>
+                  <td>{{ task.task }}</td>
+                  <td>{{ task.sub_task }}</td>
+                  <td>
+                      {% for name in task.developer.all %}
+                            {{ name }}&nbsp;
+                      {% endfor %}
+                  </td>
+                  <td>
+                      {% for name in task.tester.all %}
+                            {{ name }}&nbsp;
+                      {% endfor %}
+                  </td>
+                  <td>
+                      {% if progress1.pub_date == date_now %}
+                        <span style="color: red">{{ progress1.progress }}%</span>
+                      {% else %}
+                        {{ progress1.progress }}%
+                      {% endif %}
+                  </td>
+                  <td>
+                       {{ progress2.progress }}%
+                  </td>
+                  <td>
+                       {{ progress3.progress }}%
+                  </td>
+                  <td>
+                       {{ progress4.progress }}%
+                  </td>
+                  <td>{{ task.comment }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <!--<script src="/static/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>-->
+    <!--<script src="/static/bootstrap-table/bootstrap-table.min.js"></script>-->
+    <script src="/static/bootstrap-table/jquery-3.4.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="/static/bootstrap/js/jquery.min.js"><\/script>')</script>
+    <script src="/static/bootstrap/js/holder.min.js"></script>
+    </body>
+</html>
+
+<!--<table data-toggle="table">-->
+      <!--<thead>-->
+        <!--<tr>-->
+          <!--<th>上线时间</th>-->
+          <!--<th>项目</th>-->
+          <!--<th>子系统</th>-->
+          <!--<th>上线功能点</th>-->
+          <!--<th>子任务分解</th>-->
+          <!--<th>开发人员</th>-->
+          <!--<th>测试人员</th>-->
+          <!--<th>需求理解进度</th>-->
+          <!--<th>测试用例编写进度</th>-->
+          <!--<th>测试用例执行进度</th>-->
+          <!--<th>测试报告编写进度</th>-->
+          <!--<th>备注</th>-->
+        <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody>-->
+        <!--<tr>-->
+          <!--<td>1</td>-->
+          <!--<td>Item 1</td>-->
+          <!--<td>$1</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+          <!--<td>2</td>-->
+          <!--<td>Item 2</td>-->
+          <!--<td>$2</td>-->
+        <!--</tr>-->
+      <!--</tbody>-->
+    <!--</table>-->
+
+<!--{% if latest_question_list %}-->
+    <!--<ul>-->
+    <!--{% for question in latest_question_list %}-->
+        <!--<li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>-->
+    <!--{% endfor %}-->
+    <!--</ul>-->
+    <!--{% else %}-->
+        <!--<p>No polls are available.</p>-->
+    <!--{% endif %}-->
+
+<!--<div>-->
+    <!--<div class="panel panel-default">-->
+      <!--<div class="panel-body">-->
+          <!--<h4>测试日报</h4>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<table width="100%" border="0" cellpadding="8"  class="table table-bordered">-->
+        <!--<caption>测试日报</caption>-->
+        <!--<tr>-->
+            <!--<th rowspan="2">计划上线时间</th>-->
+            <!--<th rowspan="2">项目</th>-->
+            <!--<th rowspan="2">子系统</th>-->
+            <!--<th rowspan="2">上线功能点</th>-->
+            <!--<th rowspan="2">子任务分解</th>-->
+            <!--<th rowspan="2">开发人员</th>-->
+            <!--<th rowspan="2">测试人员</th>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<th>测试进度</th>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<th rowspan="1">需求理解</th>-->
+            <!--<th rowspan="1">测试用例编写</th>-->
+            <!--<th rowspan="1">测试用例执行</th>-->
+            <!--<th rowspan="1">备注</th>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td>1</td>-->
+            <!--<td>2</td>-->
+            <!--<td>3</td>-->
+            <!--<td>4</td>-->
+        <!--</tr>-->
+    <!--</table>-->
+<!--</div>-->
+
+
